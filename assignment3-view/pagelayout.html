@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="page1" id="top">
+    <!--==============================header=================================-->
+    <header>
+        <div class="container_12">
+            <div class="grid_12">
+                <h1>
+                    <a href="index.html">
+                        <img src="images/logo.png" alt="Your Happy Family">
+                    </a>
+                </h1>
+                <div class="slogan">Status Checker</div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </header>
+    <!--==============================Content=================================-->
+    <div class="content">
+        <div class="ic">More Website Templates @ TemplateMonster.com - January 27, 2014!</div>
+        <div class="container_12">
+            <div class="grid_6">
+                <div class="block1">
+                    <div class="img_block">
+                        <img src="images/water.png" alt="" class="img_inner">
+                        <span class="l"></span>
+                        <span class="ll"></span>
+                        <span class="r"></span>
+                        <span class="rr"></span>
+                        <span class="lb"></span>
+                        <span class="llb"></span>
+                        <span class="rb"></span>
+                        <span class="rrb"></span>
+                    </div>
+                    <div class="clear"></div>
+                    <p class="text1" id="water"></p>
+                </div>
+            </div>
+            <div class="grid_6">
+                <div class="block1">
+                    <div class="img_block">
+                        <img src="images/wind.png" alt="" class="img_inner">
+                        <span class="l"></span>
+                        <span class="ll"></span>
+                        <span class="r"></span>
+                        <span class="rr"></span>
+                        <span class="lb"></span>
+                        <span class="llb"></span>
+                        <span class="rb"></span>
+                        <span class="rrb"></span>
+                    </div>
+                    <div class="clear"></div>
+                    <p class="text1" id="wind"></p>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="container_12">
+            <div class="grid_12 ">
+                <div class="copy">
+                    Eden (C) <span id="copyright-year"></span> &nbsp;|&nbsp; <a href="#">Privacy Policy</a> | Website
+                    Template Designed by <a href="http://www.templatemonster.com/"
+                        rel="nofollow">TemplateMonster.com</a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $.ajax({
+            url: "http://localhost:8080/status",
+            success: function (data) {
+                if (data.data.water < 5) {
+                    $('#water').text("Total " + data.data.water + " meter - Status Air : Aman")
+                } else  if ((data.data.water >= 5) && (data.data.water <= 8))  {
+                    $('#water').text("Total " + data.data.water + " meter - Status Air : Siaga")
+                } else if (data.data.water > 8) {
+                    $('#water').text("Total " + data.data.water + " meter - Status Air : Bahaya")
+                }
+
+                if (data.data.wind < 6) {
+                    $('#wind').text("Total " + data.data.wind + " meter/detik - Status Angin : Aman")
+                } else  if ((data.data.wind >= 7) && (data.data.wind <= 15))  {
+                    $('#wind').text("Total " + data.data.wind + " meter/detik - Status Angin : Siaga")
+                } else if (data.data.wind > 15) {
+                    $('#wind').text("Total " + data.data.wind + " meter/detik - Status Air : Bahaya")
+                }
+            },
+            error: function () {
+                alert("There was an error.");
+            }
+        });
+
+        // Auto Update API
+        var intervalId = window.setInterval(function () {
+            $.ajax({
+                url: "http://localhost:8080/update",
+                success: function (data) {
+                    location.reload()
+                },
+                error: function () {
+                    alert("There was an error.");
+                }
+            });
+        }, 15000);
+    </script>
+</body>
+</html>
